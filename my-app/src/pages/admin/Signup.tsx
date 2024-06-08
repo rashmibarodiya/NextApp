@@ -1,5 +1,5 @@
 
-
+import apiURl from "../url"
 import { Button, Typography, Card, TextField } from "@mui/material"
 import { useState } from "react"
 
@@ -9,7 +9,7 @@ function Signup() {
    // const backendUrl= process.env.BACKEND_URL;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev/admin/signup`;
+    const url = `${apiURl}admin/signup`;
 
     
  //const url = 'admin/signup'
@@ -41,7 +41,7 @@ function Signup() {
                         onChange={(e) => {
                             setUsername(e.target.value)
                         }}
-                        fullWidth={"true"}
+                        fullWidth={true}
                         id="outlined-basic"
                         label="username"
                         variant="outlined"

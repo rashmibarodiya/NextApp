@@ -2,7 +2,11 @@ import { useEffect, useState } from "react"
 import { Button, Typography, Card } from "@mui/material"
 import{CourseType} from "../state/Course"
 import { useRouter } from "next/router.js"
+import apiURl from "../url"
 
+interface CourseProps {
+    course: CourseType;
+  }
 
 function Courses() {
     const [courses, setCourses] = useState([])
@@ -10,7 +14,7 @@ function Courses() {
 
     useEffect(() => {
         console.log("111111111")
-        const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev/admin/courses`;
+        const url = `${apiURl}admin/courses`;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -46,7 +50,7 @@ function Courses() {
             }}>
 
                 {courses.map((course) => (
-                    <CardShape course={course}></CardShape>
+                    <CardShape course={course as CourseType}></CardShape>
                 ))}
             </div>
         </div>
@@ -54,8 +58,8 @@ function Courses() {
 
 }
 
-function CardShape(props) {
-    const { title, description, imageLink, price } = props.course;
+function CardShape({course} : CourseProps) {
+    const { title, description, imageLink, price } = course;
   //const navigate = useNavigate();
   const router = useRouter()
     return (
@@ -82,7 +86,7 @@ function CardShape(props) {
                     <div>
                     <Button variant={"outlined"}
                         onClick={() => {
-                            router.push(`${props.course._id}`);
+                            router.push(`${course._id}`);
                         }}
                     >edit</Button>
                     </div>

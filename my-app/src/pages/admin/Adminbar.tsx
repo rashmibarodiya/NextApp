@@ -2,8 +2,8 @@ import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 //import { useNavigate } from 'react-router-dom';
 
-import { useRouter } from "next/router.js"
-import {userName} from '../state/Username.jsx'
+import { useRouter } from "next/router"
+import {userName} from '../state/Username'
 import { useSetRecoilState,useRecoilValue } from 'recoil';
 
 

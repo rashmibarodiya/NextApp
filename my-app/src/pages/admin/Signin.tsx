@@ -8,13 +8,14 @@ import axios from 'axios'
 import { useRouter } from "next/router.js"
 import {userName} from '../state/Username.jsx'
 import { useSetRecoilState} from 'recoil';
+import apiURl from "../url"
 
 function Signin() {
     //const navigate = useNavigate();
     const router = useRouter()
-    const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev/admin/login`
+    const url = `${apiURl}admin/login`
     const [username, setUsername] = useState("");
-    const x = useSetRecoilState(userName)
+    const x = useSetRecoilState(userName )
     const [password, setPassword] = useState("");
     return (
         <>
@@ -51,7 +52,7 @@ function Signin() {
                         onChange={(e) => {
                             setPassword(e.target.value)
                         }}
-                        fullWidth
+                        fullWidth = {true}
                         id="outlined-basic"
                         label="password"
                         type='password'
