@@ -6,6 +6,7 @@ export interface CourseType{
     imageLink: string,
     price: number,
     published: boolean
+    _id : string
 }
 
 export const courseState = atom<CourseType[]>({
