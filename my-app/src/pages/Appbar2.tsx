@@ -20,10 +20,10 @@ function checkUser() {
         const token = localStorage.getItem("token");
         console.log("token :: " + token)
 
-        fetch(`${url}` + `/me`, {
+        fetch(`${url}` + `me`, {
             method: 'GET',
             headers: {
-                "authorization": `Bearer ${localStorage.getItem("token")}`
+                // "authorization": `Bearer ${localStorage.getItem("token")}`
             }
         }).then((res) => {
             if (res.ok) {

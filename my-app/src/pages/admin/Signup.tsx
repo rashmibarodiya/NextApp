@@ -9,7 +9,7 @@ function Signup() {
    // const backendUrl= process.env.BACKEND_URL;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const url = `${apiURl}admin/signup`;
+    const url = `${apiURl}admin/Signup`;
 
     
  //const url = 'admin/signup'
@@ -80,7 +80,7 @@ function Signup() {
                                         }).then((data) => {
                                             console.log("d")
                                             console.log(data)
-                                            localStorage.setItem("token", data.token)
+                                          //  localStorage.setItem("token", data.token)
                                           //  window.location("/")
                                             alert(" Admin signup successful")
                                             

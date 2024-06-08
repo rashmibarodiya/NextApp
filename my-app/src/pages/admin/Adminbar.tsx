@@ -3,105 +3,105 @@ import { useEffect, useState } from "react";
 //import { useNavigate } from 'react-router-dom';
 
 import { useRouter } from "next/router"
-import {userName} from '../state/Username'
-import { useSetRecoilState,useRecoilValue } from 'recoil';
+import { userName } from '../state/Username'
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 
- export function Adminbar() {
+export function Adminbar() {
 
     //good image https://static.technians.com/wp-content/uploads/2020/02/Guidelines-for-images-of-website-desig-title.jpg
 
-   //const navigate = useNavigate();
-   const router = useRouter()
+    //const navigate = useNavigate();
+    const router = useRouter()
     const username = useRecoilValue(userName)
-    console.log("usernameeee :: ; "+username)
-   // const setUsername = useSetRecoilState(userName)
+    console.log("usernameeee :: ; " + username)
+    // const setUsername = useSetRecoilState(userName)
 
-//    // const [username, setUsername] = useState("")
-//     const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev`;
-//     useEffect(() => {
-//         const token = localStorage.getItem("token");
-//         console.log("token :: " + token)
+    //    // const [username, setUsername] = useState("")
+    //     const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev`;
+    //     useEffect(() => {
+    //         const token = localStorage.getItem("token");
+    //         console.log("token :: " + token)
 
-//         fetch(`${url}` + `/admin/me`, {
-//             method: 'GET',
-//             headers: {
-//                 "authorization": `Bearer ${localStorage.getItem("token")}`
-//             }
-//         }).then((res) => {
-//             if (res.ok) {
-//                 return res.text().then((data) => {
-//                     setUsername(data);
-//                     console.log("DATA : " + data);
-//                 });
-//             } else {
-//                 return res.text().then((text) => {
-//                     console.log("Non-JSON Response: " + text);
-//                 });
-//             }
-//         })
+    //         fetch(`${url}` + `/admin/me`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 "authorization": `Bearer ${localStorage.getItem("token")}`
+    //             }
+    //         }).then((res) => {
+    //             if (res.ok) {
+    //                 return res.text().then((data) => {
+    //                     setUsername(data);
+    //                     console.log("DATA : " + data);
+    //                 });
+    //             } else {
+    //                 return res.text().then((text) => {
+    //                     console.log("Non-JSON Response: " + text);
+    //                 });
+    //             }
+    //         })
 
-//     }, []);
+    //     }, []);
 
 
     if (username) {
         return (
 
             <>
-          <div style={{
-            backgroundColor :"#543310"
-          }}>
-
                 <div style={{
-                    display: "flex",
-                    justifyContent: "center"
-                }}>
-                    <Typography fontSize={20} style={{fontStyle : "normal", fontFamily: "cursive"}}>Hi {username}!</Typography>
-                </div>
-
-                <div style={{
-
-                    display: "flex",
-                    justifyContent: "space-between"
+                    backgroundColor: "#543310"
                 }}>
 
-
-                    <div >
-                        <Typography fontSize={20}>Coursera</Typography>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center"
+                    }}>
+                        <Typography fontSize={20} style={{ fontStyle: "normal", fontFamily: "cursive" }}>Hi {username}!</Typography>
                     </div>
 
-                    <div style={{ marginTop: 10, display: "flex", justifyContent: "space-between", gap: 10 }}>
-                        <div >
-                            <Button variant={"outlined"}
+                    <div style={{
 
-                                onClick={() => {
-                                    router.push('/AddCourse')
-                                }}>Add Course
-                            </Button>
-                        </div>
-                        <div >
-                            <Button variant={"outlined"}
+                        display: "flex",
+                        justifyContent: "space-between"
+                    }}>
 
-                                onClick={() => {
-                                    router.push('admin/Courses')
-                                }}>Courses
-                            </Button>
+
+                        <div >
+                            <Typography fontSize={20}>Coursera</Typography>
                         </div>
 
-                        <div style={{ marginRight: 10 }}>
-                            <Button variant={"outlined"}
-                                onClick={() => {
-                                 //   localStorage.setItem("token", null)
-                                   // window.location = "/" ///************************ */
-                                }}
-                            >Logout</Button>
+                        <div style={{ marginTop: 10, display: "flex", justifyContent: "space-between", gap: 10 }}>
+                            <div >
+                                <Button variant={"outlined"}
+
+                                    onClick={() => {
+                                        router.push('/AddCourse')
+                                    }}>Add Course
+                                </Button>
+                            </div>
+                            <div >
+                                <Button variant={"outlined"}
+
+                                    onClick={() => {
+                                        router.push('admin/Courses')
+                                    }}>Courses
+                                </Button>
+                            </div>
+
+                            <div style={{ marginRight: 10 }}>
+                                <Button variant={"outlined"}
+                                    onClick={() => {
+                                        //   localStorage.setItem("token", null)
+                                        // window.location = "/" ///************************ */
+                                    }}
+                                >Logout</Button>
+                            </div>
+
+
                         </div>
 
 
                     </div>
-
-
-                </div>
                 </div>
 
                 {/* <div style={{
@@ -135,7 +135,7 @@ import { useSetRecoilState,useRecoilValue } from 'recoil';
                     <div style={{ marginRight: 10 }}>
                         <Button variant={"outlined"}
                             onClick={() => {
-                                router.push('admin/signup');
+                                router.push('admin/Signup');
                             }}
                         >Signup</Button>
                     </div>
@@ -144,11 +144,18 @@ import { useSetRecoilState,useRecoilValue } from 'recoil';
                         <Button variant={"outlined"}
                             onClick={() => {
 
-                                router.push('admin/login');
+                                router.push('admin/Signin');
 
                             }}
                         >LOGIN</Button>
                     </div>
+                    {/* <div style={{
+                        display: "flex",
+                        justifyContent: "center"
+                    }}  >
+                        <img src={`https://getwallpapers.com/wallpaper/full/2/2/7/834570-learning-wallpapers-2960x1661-for-iphone-5.jpg`}
+                            style={{ width: 'auto', height: 420 }} />
+                    </div> */}
 
                 </div>
             </div>
