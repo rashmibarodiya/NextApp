@@ -3,14 +3,19 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import handler from"./api/hello"
+import Appbar2 from "./Appbar2";
+import { RecoilRoot } from "recoil";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  console.log(handler)
+//  console.log(handler)
   return (
     <>
-    {handler}nflldsjflek
+    <RecoilRoot>
+    <Appbar2></Appbar2>
+    </RecoilRoot>
+    
      
     </>
   );

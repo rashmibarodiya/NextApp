@@ -3,16 +3,18 @@ import { Button, Typography } from "@mui/material";
 //import { useNavigate } from 'react-router-dom';
 
 import { useRouter } from "next/router.js"
-import { Adminbar } from "./admin/Adminbar.jsx";
-// import { Userbar } from "./user/Userbar.jsx";
-import { userRole } from './state/Username.jsx';
+import { Adminbar } from "./admin/Adminbar";
+// import { Userbar } from "./user/Userbar.tsx";
+import { userRole } from './state/Username';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { userName } from './state/Username.jsx';
+import { userName } from './state/Username';
+import apiURl from "./url"
+
 
 function checkUser() {
     const setUsername = useSetRecoilState(userName);
     const setRole = useSetRecoilState(userRole);
-    const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev`;
+    const url = `${apiURl}`;
 
     useEffect(() => {
         const token = localStorage.getItem("token");
