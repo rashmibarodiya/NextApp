@@ -1,6 +1,6 @@
 
 
-import type { NextApiRequest, NextApiResponse } from "next";
+
 
 import express,{ Request as ExpressRequest, Response, NextFunction } from 'express';
 
@@ -14,7 +14,10 @@ app.use(cors());
 const port = process.env.PORT
 const SECRET = process.env.SE;
 const mongId = process.env.MONG;
+const check  = process.env.CHECK
+console.log("check :: " +check+" ")
 let role = "";
+
 
 interface Data{
     msg : string
@@ -74,31 +77,35 @@ interface UserDocument extends Document {
     user?: any; // Define the 'user' property
   }
   
-  function authenticateJwt(req: RequestWithUser, res: Response, next: NextFunction) {
-    const authHeader = req.headers.authorization;
-    console.log("token :: " + authHeader)
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
-      jwt.verify(token, SECRET, (err, decoded) => {
-        if (err) {
-          res.status(403).send({ msg: "Unauthorized access: " + err });
-        } else {
-          // Add decoded user information to the request object
-          req.user = decoded;
-          console.log(req.user);
-          next();
-        }
-      });
-    } else {
-      res.status(401).json({ msg: "No token provided" });
-    }
-  }
+  // function authenticateJwt(req: RequestWithUser, res: Response, next: NextFunction) {
+  //   const authHeader = req.headers.authorization;
+  //   console.log("token :: " + authHeader)
+  //   if (authHeader) {
+  //     const token = authHeader.split(' ')[1];
+  //     jwt.verify(token, SECRET, (err, decoded) => {
+  //       if (err) {
+  //         res.status(403).send({ msg: "Unauthorized access: " + err });
+  //       } else {
+  //         // Add decoded user information to the request object
+  //         req.user = decoded;
+  //         console.log(req.user);
+  //         next();
+  //       }
+  //     });
+  //   } else {
+  //     res.status(401).json({ msg: "No token provided" });
+  //   }
+  // }
   
 
-app.get("/me", authenticateJwt, (req  : RequestWithUser, res ) => {
+app.get("/me", (req  : RequestWithUser, res ) => {
 console.log("hiiiiiii")
+console.log("check :: " +check+" ")
 console.log(req.user) // this is sending an object having username and role
-  res.status(200).send(req.user)
+  res.status(200).send({
+    // user : req.user,
+    msg : "check :: " +check+" "
+  })
 })
 
 // app.get("/user/me", authenticateJwt, (req, res) => {
@@ -108,7 +115,7 @@ console.log(req.user) // this is sending an object having username and role
 //"here"
 
 // Admin routes
-app.post('/admin/signup', async (req, res) => {
+app.post('/admin/Signup', async (req, res) => {
   console.log("signup")
   
 
@@ -147,7 +154,7 @@ app.post('/admin/login', async (req, res) => {
   }
 });
 
-app.post('/admin/courses', authenticateJwt, async (req, res) => {
+app.post('/admin/courses', async (req, res) => {
   // logic to create a course
   var { title, description, imageLink } = req.body;
 
@@ -157,7 +164,7 @@ app.post('/admin/courses', authenticateJwt, async (req, res) => {
 
 });
 
-app.put('/admin/courses/:courseId', authenticateJwt, async (req, res) => {
+app.put('/admin/courses/:courseId', async (req, res) => {
   // logic to edit a course
   var courseId = req.params.courseId
   var course = await Course.findOne({ _id: courseId })
@@ -174,7 +181,7 @@ app.put('/admin/courses/:courseId', authenticateJwt, async (req, res) => {
 
 });
 
-app.get('/admin/courses', authenticateJwt, async (req, res) => {
+app.get('/admin/courses', async (req, res) => {
   // logic to get all courses
 
   var courses = await Course.find({})
@@ -208,7 +215,7 @@ app.post('/users/login', async (req, res) => {
   }
 });
 
-app.get('/user/courses', authenticateJwt, async (req, res) => {
+app.get('/user/courses', async (req, res) => {
   // logic to list all courses
   var courses = await Course.find({ published: true })
   // console.log(courses)
@@ -217,7 +224,7 @@ app.get('/user/courses', authenticateJwt, async (req, res) => {
 
 // const { ObjectId } = require('mongodb');
 
-app.post('/users/courses/:courseId', authenticateJwt, async (req:RequestWithUser, res) => {
+app.post('/users/courses/:courseId', async (req:RequestWithUser, res) => {
   const course = await Course.findById(req.params.courseId);
   // console.log(course);
   if (course) {
@@ -236,7 +243,7 @@ app.post('/users/courses/:courseId', authenticateJwt, async (req:RequestWithUser
 
 
 
-app.get('/users/purchasedCourses', authenticateJwt, async (req, res) => {
+app.get('/users/purchasedCourses', async (req :RequestWithUser , res) => {
   // logic to view purchased courses
   // console.log("i am in")
   const user = await User.findOne({ username: req.user.username }).populate('purchasedCourses');
