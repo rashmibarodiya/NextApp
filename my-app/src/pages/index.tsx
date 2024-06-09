@@ -2,21 +2,34 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import handler from"./api/hello"
+// import {a} from"./api/hello"
+// import {b} from"./api/hello"
+
 import Appbar2 from "./Appbar2";
 import { RecoilRoot } from "recoil";
+import useState from 'react'
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-//  console.log(handler)
-  return (
+  return(
     <>
-    <RecoilRoot>
-    <Appbar2></Appbar2>
-    </RecoilRoot>
+    <Appbar2></Appbar2></>
+  )
+
+// console.log(a)
+// console.log("fkjdhfkjd+ " +b)
+//fetch(`/a`)
+  // return (
+  //   <>
+    
+  //   dhgksdhgkhskflsgd
+  //   {/* <RecoilRoot>
+  //     <handler></handler>
+  //   <Appbar2></Appbar2>
+  //   </RecoilRoot> */}
     
      
-    </>
-  );
+  //   </>
+  // );
 }
