@@ -1,0 +1,107 @@
+
+import apiURl from "../url"
+import { Button, Typography, Card, TextField } from "@mui/material"
+import { useState } from "react"
+import axios from 'axios'
+
+function Signup() {
+   // require('dotnev').config()
+   // const backendUrl= process.env.BACKEND_URL;
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const url = `pages/api/admin/signup`;
+//my-app/src/pages/api/admin/signup/route.ts
+
+
+const handleSignup = async (url: string, username: string, password: string): Promise<void> => {
+  try {
+    const response = await axios.post(url, {
+      username,
+      password,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log('d');
+    console.log(response.data);
+    // localStorage.setItem("token", response.data.token);
+    // window.location("/");
+    alert('Admin signup successful');
+  } catch (err) {
+    alert(err);
+    console.log('Error occurred');
+    console.log(err);
+  }
+};
+
+ //const url = 'admin/signup'
+ 
+
+    return (
+        <>
+
+
+            <div style={{
+                marginTop: 150,
+                marginBottom: 10,
+                display: "flex",
+                justifyContent: "center",
+
+            }}>
+                <Typography fontSize={20} >Welcome to Coursera. Signup below</Typography>
+
+
+            </div>
+            <div style={{
+                display: "flex",
+                justifyContent: "center"
+            }}>
+
+                <Card variant='outlined' style={{ width: 300, padding: 20  , borderRadius : 10 }} >
+                    <TextField
+                   // value={username}
+                        onChange={(e) => {
+                            setUsername(e.target.value)
+                        }}
+                        fullWidth={true}
+                        id="outlined-basic"
+                        label="username"
+                        variant="outlined"
+                    />
+                    <br />
+                    <br />
+                    <TextField
+                        onChange={(e) => {
+                            setPassword(e.target.value)
+                        }}
+                        fullWidth
+                        id="outlined-basic"
+                        label="password"
+                        type='password'
+                        variant="outlined"
+                    />
+                    <br />
+                    <br />
+                    
+                    <Button
+                        onClick={() => {
+                                    handleSignup(url,username,password)
+                            
+                        }}
+                        size={"large"}
+                        variant="outlined"
+
+
+                    >Signup</Button>
+
+                </Card>
+            </div>
+
+
+        </>
+    )
+}
+
+export default Signup

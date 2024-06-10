@@ -6,6 +6,7 @@ import styles from "@/styles/Home.module.css";
 // import {b} from"./api/hello"
 
 import Appbar2 from "./Appbar2";
+import Signup from "./signup/page";
 import { RecoilRoot } from "recoil";
 import useState from 'react'
 
@@ -14,7 +15,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return(
     <>
-    <Appbar2></Appbar2></>
+    {/* <Signup></Signup> */}
+
+</>
   )
 
 // console.log(a)
