@@ -4,12 +4,14 @@ import { Admin } from '../../../../model/admin';
 export async function POST(request: NextRequest) {
   try {
 
+
+    console.log(process.env.MONG)
     
     console.log(process.env.CHECK);
     const reqBody = await request.json();
     const { username, password } = reqBody;
 
-    console.log(reqBody);
+   
 
     var admin = Admin.findOne({username})
 
@@ -33,7 +35,7 @@ export async function POST(request: NextRequest) {
           })
         }
         NextResponse.json({
-            msg : "usename || password not exist"
+            msg : "username || password not exist"
         })
         
     }
