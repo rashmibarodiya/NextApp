@@ -27,7 +27,7 @@ const adminSchema = new mongoose.Schema({
   
   // connect to MongoDB
   
-  mongoose.connect(process.env.MONG!,
+  mongoose.connect(process.env.MONG,
    { dbname: 'courses' }
   );
   
