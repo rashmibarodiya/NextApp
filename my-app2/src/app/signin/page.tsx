@@ -1,58 +1,47 @@
 
-
 'use client';
 
 import { Button, Typography,CardContent, Card, TextField } from "@mui/material"
 import { useState } from "react"
 import axios from 'axios'
+function Signin() {
 
-function Signup() {
-   // require('dotnev').config()
-   // const backendUrl= process.env.BACKEND_URL;
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const url = `/api/admin/signup`;
-//my-app/src/pages/api/admin/signup/route.ts
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
 
 
-const handleSignup = async ( username: string, password: string): Promise<void> => {
-  try {
-    const response = await axios.post(url, {
-      username,
-      password,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const handleSignin = async () => {
 
-    console.log('d');
-    console.log(response.data);
-    // localStorage.setItem("token", response.data.token);
-    // window.location("/");
-    alert(response.data.msg);
-  } catch (err) {
-    alert(err);
-    console.log('Error occurred');
-    console.log(err);
-  }
-};
+        try{
+        const res = await axios.post("/api/admin/signin", {
+            username,
+            password
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        )
 
- //const url = 'admin/signup'
- 
+        console.log(res.data);
+        alert(res.data)
+    }catch(err){
+        alert(err)
+        console.log("error frontend login ")
+        console.log(err)
+    }
 
-    return (
+}
+    return(
         <>
-
-
-            <div style={{
+        <div style={{
                 marginTop: 150,
                 marginBottom: 10,
                 display: "flex",
                 justifyContent: "center",
 
             }}>
-                <Typography fontSize={20} >Welcome to Coursera. Signup below</Typography>
+                <Typography fontSize={20} >Welcome back. Login below</Typography>
 
 
             </div>
@@ -89,21 +78,26 @@ const handleSignup = async ( username: string, password: string): Promise<void> 
                     
                     <Button
                         onClick={() => {
-                                    handleSignup(username,password)
+                                    handleSignin()
                             
                         }}
                         size={"large"}
                         variant="outlined"
 
 
-                    >Signup</Button>
+                    >Signin</Button>
 
                 </Card>
             </div>
 
-
+        
         </>
     )
+
 }
 
-export default Signup
+
+
+
+
+export default Signin;

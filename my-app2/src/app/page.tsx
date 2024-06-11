@@ -1,12 +1,22 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Signup from "./signup/page"
+import Signin from "./signin/page"
 export default function Home() {
   return (
     <>
-    
-dshfkjsdj
-<Signup></Signup>
+    <div style = {{background : "#616A6B "}}>
+
+    dshfkjsdj
+    <Signin></Signin>
+    <Signup></Signup>
+
+
+
+
+
+    </div>
+
     </>
   )
   //   <main className={styles.main}>
