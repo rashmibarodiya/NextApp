@@ -1,52 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Admin } from '../../../../model/admin';
+import { connect } from '../../../../dbConfig/db';
 
 export async function POST(request: NextRequest) {
-  try {
+    await connect();  
 
+    try {
+        console.log(process.env.MONG);
+        console.log(process.env.CHECK);
 
-    console.log(process.env.MONG)
-    
-    console.log(process.env.CHECK);
-    const reqBody = await request.json();
-    const { username, password } = reqBody;
+        const reqBody = await request.json();
+        const { username, password } = reqBody;
+console.log(reqBody)
+        const admin = await Admin.findOne({ username });
 
-   
+        if (admin) {
+          console.log("Admin already exists")
+            return NextResponse.json({
+                msg: "Admin already exists"
+            });
+        } else {
+            if (username && password) {
+                const newAdmin = new Admin({ username, password });
+                await newAdmin.save();
 
-    var admin = Admin.findOne({username})
-
-    if(admin != null){
-        NextResponse.json({
-            msg :"Admin already exist"
-        })
-    }else{
-
-        if(username && password){
-          const newadmin = new Admin({
-                username,
-                password
-            })
-
-          await newadmin.save()
-
-          console.log("admin added successfully")
-          NextResponse.json({
-            msg : "Admin created successfully!"
-          })
+                console.log("Admin added successfully");
+                return NextResponse.json({
+                    msg: "Admin created successfully!"
+                });
+            } else {
+              console.log("Username or password not provided")
+                return NextResponse.json({
+                    msg: "Username or password not provided"
+                });
+            }
         }
-        NextResponse.json({
-            msg : "username || password not exist"
-        })
-        
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
-
-    // Perform user creation logic here
-
-    return NextResponse.json({
-      message: 'User created successfully',
-      success: true,
-    });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
 }
