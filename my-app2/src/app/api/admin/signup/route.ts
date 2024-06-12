@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
         const reqBody = await request.json();
         const { username, password } = reqBody;
-console.log(reqBody)
+        console.log(reqBody)
         const admin = await Admin.findOne({ username });
 
         if (admin) {

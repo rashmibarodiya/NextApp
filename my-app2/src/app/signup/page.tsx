@@ -67,7 +67,7 @@ const handleSignup = async ( username: string, password: string): Promise<void> 
                 justifyContent: "center"
             }}>
 
-                <Card  style={{ padding: 20  , borderRadius : 10 ,backgroundColor: '#7F8C8D'}} >
+                <Card  style={{ padding: 20  , borderRadius : 10 ,backgroundColor: '#839192'}} >
                     <TextField
                    // value={username}
                         onChange={(e) => {

@@ -3,13 +3,15 @@ import styles from "./page.module.css";
 import Signup from "./signup/page"
 import Signin from "./signin/page"
 import Landing  from "./landing/page";
+import Courses  from "./courses/page";
 export default function Home() {
   return (
     <>
     {/* <div style = {{background : "#616A6B "}}> */}
 
     dshfkjsdj
-<Landing></Landing>
+{/* <Landing></Landing> */}
+<Courses></Courses>
     {/* <Signup></Signup> */}
 
 

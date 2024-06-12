@@ -108,5 +108,6 @@ a {
 
 
 body {
-  background-color: slategray;
+  /* background-color: "#909497"; */
+  background-color: rgb(131, 145, 146);
 }
