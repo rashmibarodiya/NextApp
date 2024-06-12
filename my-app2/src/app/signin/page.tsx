@@ -4,7 +4,10 @@
 import { Button, Typography,CardContent, Card, TextField } from "@mui/material"
 import { useState } from "react"
 import axios from 'axios'
+import {  useRouter } from "next/navigation"
+
 function Signin() {
+    const router = useRouter()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -24,7 +27,8 @@ function Signin() {
         )
 
         console.log(res.data);
-        alert(res.data)
+        alert(res.data.msg)
+        router.push("/signup")
     }catch(err){
         alert(err)
         console.log("error frontend login ")
