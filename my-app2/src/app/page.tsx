@@ -2,20 +2,21 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Signup from "./signup/page"
 import Signin from "./signin/page"
+import Landing  from "./landing/page";
 export default function Home() {
   return (
     <>
-    <div style = {{background : "#616A6B "}}>
+    {/* <div style = {{background : "#616A6B "}}> */}
 
     dshfkjsdj
-    <Signin></Signin>
-    <Signup></Signup>
+<Landing></Landing>
+    {/* <Signup></Signup> */}
 
 
 
 
 
-    </div>
+    {/* </div> */}
 
     </>
   )
