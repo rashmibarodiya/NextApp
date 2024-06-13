@@ -10,12 +10,14 @@ export async function POST(req: NextRequest){
     await connect();
 
     try{
+
         const reqbody = await req.json()
-        const {title, des, price, img} = reqbody
-        const course = new Course({title, des,price,img})
+        const {title, description, price, imageLink} = reqbody
+        console.log("here i am here")
+        const course = new Course({title, description,price,imageLink})
         await course.save();
         console.log(course)
-        NextResponse.json({ message: 'Course created successfully', courseId: course.id })
+        return NextResponse.json({ message: 'Course created successfully', courseId: course._id })
 
     }catch(err : any){
         console.log("Something went wrong")
