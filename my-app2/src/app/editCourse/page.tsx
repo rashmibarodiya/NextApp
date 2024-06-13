@@ -1,32 +1,20 @@
-'use client'
+// src/app/editCourse/page.tsx
+'use client';
 
 import { useEffect, useState } from "react";
-import { Button, Typography, Card,TextField} from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useSetRecoilState,useRecoilValue, useRecoilState } from "recoil";
-type courseType = {
-    title: string;
-    description: string;
-    price: number;
-    imageLink: string;
-}
+import { Button, Typography, Card, TextField } from "@mui/material";
+import { useParams } from "next/navigation"; // You might need to change this based on your router version
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
+import { courseState } from '../store/atom/userState';
+import { courseType } from '../types/ty';
 
-interface CardShapeProps {
-    course: courseType;
+interface strType {
+  courseId: string;
 }
-interface numType {
-  courseId: number;
-}
-
-
-const courseState = atom({
-  key: 'courseState',
-  default: [],
-});
 
 function Course() {
-  const { courseId } = useParams();
-  const url = `https://fantastic-happiness-jjrgp4974647f5rr5-8000.app.github.dev/admin/courses`;
+  const { courseId } = useParams() as { courseId: string };
+  const url = `/api/admin/update`;
 
   const setCourses = useSetRecoilState(courseState);
 
@@ -38,36 +26,26 @@ function Course() {
         "authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }).then((res) => {
-      res.json().then((data) => {
-        setCourses(data)
-      })
-    })
-  }, [setCourses, url])
+      res.json().then((data: courseType[]) => {
+        setCourses(data);
+      });
+    });
+  }, [setCourses, url]);
 
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: "space-around",
-      marginTop: '100'
-    }}>
-      {/* <topper/> */}
+    <div style={{ display: "flex", justifyContent: "space-around", marginTop: '100' }}>
       <CourseCard courseId={courseId}></CourseCard>
       <UpdateCard courseId={courseId} url={url}></UpdateCard>
     </div>
   );
 }
 
-function CourseCard(props :numType ) {
-  const { courseId } = props;
-  const courses = (courseState);
-  let course : courseType = null 
-  courses.map((a) => {
-    if (a._id == courseId) {
-      course = a;
-    }
-  })
-  if (!course) return <div>loading.ll...</div>;
-  console.log("hi::::" + course.imageLink)
+function CourseCard({ courseId }: strType) {
+  const courses = useRecoilValue(courseState);
+  const course = courses.find(c => c._id === courseId);
+
+  if (!course) return <div>Loading...</div>;
+
   return (
     <div>
       <Card variant="outlined" style={{ marginTop: 10, minHeight: 200, marginRight: 20, width: 300, padding: 10 }}>
@@ -75,30 +53,26 @@ function CourseCard(props :numType ) {
         <Typography align="center">{course.description}</Typography>
         <img src={course.imageLink} style={{ width: '100%', height: 300 }} />
         <Typography align="left">Price - ${course.price}</Typography>
-
       </Card>
     </div>
   );
 }
 
+interface UpdateCardProps {
+  courseId: string;
+  url: string;
+}
 
-function UpdateCard(props) {
-  const { courseId, url } = props;
+function UpdateCard({ courseId, url }: UpdateCardProps) {
   const [courses, setCourses] = useRecoilState(courseState);
-  
-  const [title, setTitle] = useState(courses.title);
-  const [description, setDescription] = useState('');
-  const [imageLink, setImageLink] = useState('');
-  const [price, setPrice] = useState("");
+  const course = courses.find(c => c._id === courseId);
 
+  const [title, setTitle] = useState(course?.title || '');
+  const [description, setDescription] = useState(course?.description || '');
+  const [imageLink, setImageLink] = useState(course?.imageLink || '');
+  const [price, setPrice] = useState(course?.price.toString() || '');
 
-  let course = null
-  courses.map((a) => {
-    if (a._id == courseId) {
-      course = a;
-    }
-  })
-  if (!course) return <div>loading....</div>;
+  if (!course) return <div>Loading...</div>;
 
   return (
     <div style={{ marginTop: 130 }}>
@@ -106,42 +80,35 @@ function UpdateCard(props) {
         <div>
           <Typography align="center">Update course details</Typography>
         </div>
-        <TextField  fullWidth onChange={(e) => setTitle(e.target.value)} label={"Title"} variant={"outlined"} />
+        <TextField fullWidth onChange={(e) => setTitle(e.target.value)} label="Title" variant="outlined" value={title} />
         <br /><br />
-        <TextField  fullWidth onChange={(e) => setDescription(e.target.value)} label={"Description"} variant={"outlined"} />
+        <TextField fullWidth onChange={(e) => setDescription(e.target.value)} label="Description" variant="outlined" value={description} />
         <br /><br />
-        <TextField  fullWidth onChange={(e) => setImageLink(e.target.value)} label={"Image Link"} variant={"outlined"} />
+        <TextField fullWidth onChange={(e) => setImageLink(e.target.value)} label="Image Link" variant="outlined" value={imageLink} />
         <br /><br />
-        <TextField  fullWidth onChange={(e) => setPrice(e.target.value)} label={"Price"} variant={"outlined"} />
+        <TextField fullWidth onChange={(e) => setPrice(e.target.value)} label="Price" variant="outlined" value={price} />
         <br /><br />
-        <Button size="large" variant={"outlined"} onClick={() => {
+        <Button size="large" variant="outlined" onClick={() => {
           fetch(`${url}/${courseId}`, {
             method: 'PUT',
             body: JSON.stringify({
               title,
               description,
               imageLink,
-              price,
+              price: parseFloat(price),
               published: true
             }),
             headers: {
               "Content-type": "application/json",
-              "Authorization": "Bearer " + localStorage.getItem("token")
+              "Authorization": `Bearer ${localStorage.getItem("token")}`
             }
           }).then((res) => {
             res.json().then((data) => {
-              let updatedCourses = courses.map(c => c.id === parseInt(courseId) ? {
-                ...c,
-                title,
-                description,
-                imageLink,
-                published: true
-              } : c);
+              const updatedCourses = courses.map(c => c._id === courseId ? { ...c, title, description, imageLink, price: parseFloat(price), published: true } : c);
               setCourses(updatedCourses);
               alert("Course updated successfully");
-              console.log("data : " + data);
-            })
-          })
+            });
+          });
         }}>Update Course</Button>
       </Card>
     </div>

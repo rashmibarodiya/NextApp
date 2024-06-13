@@ -1,16 +1,25 @@
+'use client'
+
+
+
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import Signup from "./signup/page"
 import Signin from "./signin/page"
 import Landing  from "./landing/page";
 import Courses  from "./courses/page";
+import AddCourse  from "./addCourse/page";
+import { RecoilRoot } from "recoil";
 export default function Home() {
   return (
     <>
+    <RecoilRoot>
     {/* <div style = {{background : "#616A6B "}}> */}
 
     dshfkjsdj
 {/* <Landing></Landing> */}
+{/* <AddCourse></AddCourse> */}
 <Courses></Courses>
     {/* <Signup></Signup> */}
 
@@ -19,7 +28,7 @@ export default function Home() {
 
 
     {/* </div> */}
-
+    </RecoilRoot>
     </>
   )
   //   <main className={styles.main}>

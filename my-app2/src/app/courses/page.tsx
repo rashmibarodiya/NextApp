@@ -90,7 +90,7 @@ function CardShape({ course }: CardShapeProps) {
                     <div>
                         <Button variant={"outlined"}
                             onClick={() => {
-                                // navigate(`${course._id}`);
+                               router.push('/editCourse')
                             }}
                         >edit</Button>
                     </div>
