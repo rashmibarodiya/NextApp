@@ -17,10 +17,10 @@ export default function Home() {
     <RecoilRoot>
     {/* <div style = {{background : "#616A6B "}}> */}
 
-    dshfkjsdj
+    <Signup></Signup>
 {/* <Landing></Landing> */}
 {/* <AddCourse></AddCourse> */}
-<Courses></Courses>
+{/* <Courses></Courses> */}
     {/* <Signup></Signup> */}
 
 
